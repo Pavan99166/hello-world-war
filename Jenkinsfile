@@ -20,7 +20,7 @@ pipeline {
 			  success {
 			     echo "pipeline success"
 				 mail (
-				       to:'pavankumarks2022@gmail.com'
+				       to:'pavankumarks2022@gmail.com',
 					   subject: "job is success:  ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
 					   body: "the build is succees for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} was successfull. \n\n" +
                              "view the details here:${env.Build_URL}"
