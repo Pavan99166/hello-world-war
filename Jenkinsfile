@@ -18,10 +18,29 @@ pipeline {
             }
         }
          stage('Email notification') {
-          steps {      
-               sh "echo "your build hello_world_war_pipeline is success" | mail -s  "Jenkine build Success:hello_world_war_pipeline" pavankumarks2022@gmail.com "
-            } 
-         }
+          steps {
+		      post {
+			  success {
+			     echo "pipeline success"
+				 mail (
+				       to: 'pavankumarks2022@gmail.com'
+					   subject: "job is success:  ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
+					   body: "the build is succees for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} was successfull. \n\n" +
+                             "view the details here:${env.Build_URL}
+                ) 							 						
+        }
+		failure {
+		    echo 'pipeline is failed. please check the logs.'
+			mail (
+				       to: 'pavankumarks2022@gmail.com'
+					   subject: "job is failed:  ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
+					   body: "the build is failed for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} was failed. \n\n" +
+                             "view the details here:${env.Build_URL}
+				)
+		}
+	}
+              
+     } 
     }
 }
 
