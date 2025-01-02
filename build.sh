@@ -5,3 +5,4 @@ rm -rf hello-world-war
 fi
 
 mvn clean package
+echo "raj"
