@@ -17,31 +17,33 @@ pipeline {
                sh " sudo scp /opt/jenkins/workspace/hello_world_war_pipeline/target/hello-world-war-1.0.0.war root@ip-172-31-38-245:/opt/apache-tomcat-10.1.34/webapps "
             }
         }
-         stage('Email notification') {
+
+	stage('Email notification') {
           steps {
-		      post {
+		  post {
 			  success {
 			     echo "pipeline success"
 				 mail (
-				       to: 'pavankumarks2022@gmail.com'
+				       to:'pavankumarks2022@gmail.com'
 					   subject: "job is success:  ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
 					   body: "the build is succees for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} was successfull. \n\n" +
-                             "view the details here:${env.Build_URL}
+                             "view the details here:${env.Build_URL}"
                 ) 							 						
         }
-		failure {
+failure {
 		    echo 'pipeline is failed. please check the logs.'
 			mail (
-				       to: 'pavankumarks2022@gmail.com'
+				       to:'pavankumarks2022@gmail.com'
 					   subject: "job is failed:  ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
-					   body: "the build is failed for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} was failed. \n\n" +
-                             "view the details here:${env.Build_URL}
-				)
-		}
+					   body: "the build is failed for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} was successfull. \n\n" +
+                             "view the details here:${env.Build_URL}"
+							 )
+    }
+}    
+     } 
 	}
               
      } 
     }
-}
 
 
