@@ -18,12 +18,11 @@ pipeline {
             }
         }
          stage('Email notification') {
-          steps {
-		      
-               sh "echo "your build hello_world_war_pipeline is success" | mail -s  "Jenkine build Success:hello_world_war_pipeline" pavankumarks2022@gmail.com"
+          steps {      
+               sh "echo "your build hello_world_war_pipeline is success" | mail -s  "Jenkine build Success:hello_world_war_pipeline" pavankumarks2022@gmail.com "
             } 
          }
     }
 }
-}
+
 
