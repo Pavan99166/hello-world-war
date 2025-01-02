@@ -1,15 +1,16 @@
 pipeline {
     agent { label 'dev' }
-    stages {
-        stage('Example1') {
+    stage('checkout') {
           steps {
-                echo 'Hello World'
+              sh "git clone https://github.com/Pavan99166/hello-world-war.git"
             }
         }
-        stage('Example2') {
+    stages {
+        stage('build') {
           steps {
-                echo 'Hello World'
+              sh "mvn clean package"
             }
+        }
         }
     }
 }
