@@ -8,3 +8,4 @@ fi
 mvn clean package
 echo "raj"
 echo "raj"
+echo "raj"
