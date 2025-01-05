@@ -34,7 +34,7 @@
           <!---add your own sonar account details -->
 	    <properties>
 	    <sonar.projectKey>Pavan99166_hello-world-war</sonar.projectKey>
-	    <sonar.organization>Pavan99166</sonar.organization>
+	    <sonar.organization>pavan99166</sonar.organization>
 	    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	   </properties>
 </project>
