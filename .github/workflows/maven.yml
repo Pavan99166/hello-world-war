@@ -19,7 +19,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
+     steps:
       # Checkout the repository
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -28,24 +28,17 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: 'temurin'
 
-
-      - name: Configure Maven settings
-        run: |
-          mkdir -p ~/.m2
-          echo "<settings>
-                  <servers>
-                    <server>
-                      <id>hello-world-war</id>
-                      <username>${{ secrets.ARTIFACTORY_USERNAME }}</username>
-                      <password>${{ secrets.ARTIFACTORY_API_KEY }}</password>
-                    </server>
-                  </servers>
-                </settings>" > ~/.m2/settings.xml
-        
+      # Cache Maven dependencies
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('/pom.xml') }}
+          restore-keys: 
           
       # Build the project with Maven
       - name: Build with Maven
-        run: mvn clean deploy
+        run: mvn clean install
