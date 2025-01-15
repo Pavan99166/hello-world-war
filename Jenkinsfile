@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { lable 'server1' } 
     environment {
         ARTIFACT_URL = 'http://13.201.3.51:8082/artifactory/hello-world-war-libs-release/com/efsavage/hello-world-war/1.0.0/hello-world-war-1.0.0.war'
         TOMCAT_PATH = '/opt/apache-tomcat-10.1.34'
