@@ -8,20 +8,26 @@ pipeline {
         stage('Download Artifact') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'artifactory-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh """
-                   
-                    cd /opt/apache-tomcat-10.1.34/webapps
+                    script {
+                        // Using a more explicit way of calling shell script with environment variables
+                        sh """
+                        echo 'Starting artifact download...'
 
-                    # Correct usage of environment variables for curl
-                    curl -L -u "\$USERNAME:\$PASSWORD" -O "\$ARTIFACT_URL"
+                        cd ${TOMCAT_PATH}/webapps
 
-                    cd ..
-                    pwd
-                    cd bin/
-                    ./shutdown.sh
-                    sleep 10
-                    ./startup.sh
-                    """
+                        # Correctly fetch the artifact using the credentials
+                        curl -L -u "${USERNAME}:${PASSWORD}" -O "${ARTIFACT_URL}"
+
+                        echo 'Artifact downloaded, restarting Tomcat...'
+
+                        cd ${TOMCAT_PATH}/bin
+                        ./shutdown.sh
+                        sleep 10  # Wait for a few seconds to allow Tomcat to shut down
+
+                        ./startup.sh
+                        echo 'Tomcat started successfully.'
+                        """
+                    }
                 }
             }
         }
