@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_REPO = "santhosh1992/hello-world-war"
+        DOCKER_REPO = "pavan99166/hello-world-war"
         DOCKER_TAG = "latest"
         CONTAINER_NAME = "hello-world-container"
     }
